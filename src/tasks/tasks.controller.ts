@@ -38,10 +38,10 @@ export class TasksController {
     return this.taskService.create(createTask);
   }
 
-  // @Delete('/:id')
-  // delete(@Param('id') id: string) {
-  //   return this.taskService.delete(id);
-  // }
+  @Delete('/:id')
+  delete(@Param('id') id: number) {
+    return this.taskService.delete(id);
+  }
 
   // @Patch('/:id/status')
   // update(

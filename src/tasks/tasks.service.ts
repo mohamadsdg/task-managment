@@ -41,22 +41,15 @@ export class TasksService {
     return found;
   }
 
-  public create(createTask: CreateTaskDto) {
-    console.log(createTask)
+  public create(createTask: CreateTaskDto):Promise<Task> {
     return this.taskRepository.createTask(createTask)
 
     // const task =  this.taskRepository.create({description,title})
     // return await this.taskRepository.save(task)
   }
 
-  // public delete(id: string): void {
-  //   const found = this.findOne(id);
-  //   this.tasks = this.tasks.filter(task => task.id !== found.id);
-  // }
-
-  // public update(id: string, status: TaskStatus): Task {
-  //   const task = this.findOne(id);
-  //   task.status = status;
-  //   return task;
-  // }
+  public delete(id: number):Promise<Task> {
+   return this.taskRepository.deleteByFind(id)
+  // return this.taskRepository.deleteByDelete(id)
+  }
 }
