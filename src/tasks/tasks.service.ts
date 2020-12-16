@@ -4,6 +4,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { FilerTaskDto } from './dto/filter-task.dto';
 import { Task } from './entities/task.entity';
 import { TaskRepository } from './repository/task.repository';
+import { TaskStatus } from './task.model';
 
 @Injectable()
 export class TasksService {
@@ -51,5 +52,12 @@ export class TasksService {
   public delete(id: number):Promise<Task> {
    return this.taskRepository.deleteByFind(id)
   // return this.taskRepository.deleteByDelete(id)
+  }
+
+  public async update(id:number,status:TaskStatus): Promise<Task>{
+    const task = await this.findOne(id);
+     task.status = status
+     await task.save();
+     return task;
   }
 }
