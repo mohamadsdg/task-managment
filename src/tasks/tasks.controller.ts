@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -22,12 +23,12 @@ export class TasksController {
   @Get()
   findAll(@Query(ValidationPipe) filterTaskDto: FilerTaskDto) {
     return Object.keys(filterTaskDto).length
-      ? this.taskService.findByFilter(filterTaskDto)
+      ? null
       : this.taskService.findAll();
   }
 
   @Get('/:id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id',ParseIntPipe) id: number) {
     return this.taskService.findOne(id);
   }
 
@@ -37,16 +38,16 @@ export class TasksController {
     return this.taskService.create(createTask);
   }
 
-  @Delete('/:id')
-  delete(@Param('id') id: string) {
-    return this.taskService.delete(id);
-  }
+  // @Delete('/:id')
+  // delete(@Param('id') id: string) {
+  //   return this.taskService.delete(id);
+  // }
 
-  @Patch('/:id/status')
-  update(
-    @Param('id') id: string,
-    @Body('status', TaskStatusPipe) status: TaskStatus,
-  ) {
-    return this.taskService.update(id, status);
-  }
+  // @Patch('/:id/status')
+  // update(
+  //   @Param('id') id: string,
+  //   @Body('status', TaskStatusPipe) status: TaskStatus,
+  // ) {
+  //   return this.taskService.update(id, status);
+  // }
 }

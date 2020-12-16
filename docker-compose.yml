@@ -6,6 +6,7 @@ services:
     ports:
       - '5432:5432'
     environment:
+      POSTGRES_USER: admin
       POSTGRES_PASSWORD: pass123
       POSTGRES_DB: taskmanagment
   pgadmin:
@@ -16,3 +17,5 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@local.com
       PGADMIN_DEFAULT_PASSWORD: admin
+    links:
+      - 'db:pgsql-server'
