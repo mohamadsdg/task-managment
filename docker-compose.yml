@@ -7,6 +7,7 @@ services:
       - '5432:5432'
     environment:
       POSTGRES_PASSWORD: pass123
+      POSTGRES_DB: taskmanagment
   pgadmin:
     image: dpage/pgadmin4
     restart: always
