@@ -22,9 +22,7 @@ export class TasksController {
 
   @Get()
   findAll(@Query(ValidationPipe) filterTaskDto: FilerTaskDto) {
-    return Object.keys(filterTaskDto).length
-      ? null
-      : this.taskService.findAll();
+    return this.taskService.findAll(filterTaskDto);
   }
 
   @Get('/:id')
