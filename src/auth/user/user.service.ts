@@ -10,6 +10,6 @@ export class UserService {
     private readonly userRepository: UserRepository,
   ) {}
   public signUp(authCredential: AuthCredentialsDto) {
-    this.userRepository.signUp(authCredential);
+    return this.userRepository.signUp(authCredential);
   }
 }

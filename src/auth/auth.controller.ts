@@ -10,6 +10,6 @@ export class AuthController {
 
   @Post('/signup')
   public signUp(@Body(ValidationPipe) authCredential: AuthCredentialsDto) {
-    this.userService.signUp(authCredential)
+    return this.userService.signUp(authCredential)
   }
 }
