@@ -1,7 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 
 @Entity()
-@Unique(["username"])
+@Unique(['username'])
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -14,6 +14,9 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true, default: null })
   email: string;
+
+  @Column()
+  salt: string;
 
   @CreateDateColumn({ name: 'created_at' })
   'created_at': Date;
