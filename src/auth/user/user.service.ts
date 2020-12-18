@@ -12,4 +12,7 @@ export class UserService {
   public signUp(authCredential: AuthCredentialsDto) {
     return this.userRepository.signUp(authCredential);
   }
+  public signIn(authCredential: AuthCredentialsDto) {
+    return this.userRepository.signIn(authCredential)
+  }
 }

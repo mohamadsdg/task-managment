@@ -1,4 +1,4 @@
-import { ConflictException, InternalServerErrorException } from "@nestjs/common";
+import { ConflictException, InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
 import { EntityRepository, Repository } from "typeorm";
 import * as bcrypt from "bcrypt";
 import { AuthCredentialsDto } from "../dto/auth-credentials.dto";
@@ -24,6 +24,19 @@ export class UserRepository extends Repository<User> {
       }
       throw new InternalServerErrorException();
     }
+  }
+
+  public async signIn(authCredentials: AuthCredentialsDto):Promise<any> {
+    const { password, username } = authCredentials;
+
+    const user = await this.findOne({username})
+
+    if(user && await user?.validatePassword(password)){
+      delete user.password
+      delete user.salt
+      return user
+    }
+    throw new UnauthorizedException('Invalid credentials')
   }
 
   private async generateSalt(): Promise<string> {

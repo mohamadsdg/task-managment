@@ -1,5 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
-
+import { compare } from "bcrypt";
 @Entity()
 @Unique(['username'])
 export class User extends BaseEntity {
@@ -23,4 +23,8 @@ export class User extends BaseEntity {
 
   @UpdateDateColumn({ name: 'updated_at' })
   'updated_at': Date;
+
+  public async validatePassword(password:string){
+    return await compare(password, this.password);
+  }
 }
