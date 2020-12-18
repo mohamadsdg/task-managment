@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -16,7 +17,9 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { TaskStatus } from './task.model';
 import { FilerTaskDto } from './dto/filter-task.dto';
 import { TaskStatusPipe } from './pipes/task-status.pipe';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 @Controller('tasks')
+@UseGuards(JwtAuthGuard)
 export class TasksController {
   constructor(private readonly taskService: TasksService) {}
 
@@ -26,7 +29,7 @@ export class TasksController {
   }
 
   @Get('/:id')
-  findOne(@Param('id',ParseIntPipe) id: number) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.taskService.findOne(id);
   }
 
@@ -43,7 +46,7 @@ export class TasksController {
 
   @Patch('/:id/status')
   update(
-    @Param('id',ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body('status', TaskStatusPipe) status: TaskStatus,
   ) {
     return this.taskService.update(id, status);

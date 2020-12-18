@@ -26,15 +26,13 @@ export class UserRepository extends Repository<User> {
     }
   }
 
-  public async signIn(authCredentials: AuthCredentialsDto):Promise<any> {
+  public async signIn(authCredentials: AuthCredentialsDto):Promise<string> {
     const { password, username } = authCredentials;
 
     const user = await this.findOne({username})
 
     if(user && await user?.validatePassword(password)){
-      delete user.password
-      delete user.salt
-      return user
+      return user.username
     }
     throw new UnauthorizedException('Invalid credentials')
   }
