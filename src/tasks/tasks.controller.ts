@@ -34,8 +34,8 @@ export class TasksController {
   }
 
   @Get('/:id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.taskService.findOne(id);
+  findOne(@GetUser() user: User, @Param('id', ParseIntPipe) id: number) {
+    return this.taskService.findOne(id, user);
   }
 
   @Post()
@@ -49,11 +49,11 @@ export class TasksController {
     return this.taskService.delete(id);
   }
 
-  @Patch('/:id/status')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body('status', TaskStatusPipe) status: TaskStatus,
-  ) {
-    return this.taskService.update(id, status);
-  }
+  // @Patch('/:id/status')
+  // update(
+  //   @Param('id', ParseIntPipe) id: number,
+  //   @Body('status', TaskStatusPipe) status: TaskStatus,
+  // ) {
+  //   return this.taskService.update(id, status);
+  // }
 }
