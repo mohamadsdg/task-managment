@@ -42,8 +42,10 @@ export class TaskRepository extends Repository<Task> {
     delete task.user;
     return task;
   }
-  public async deleteByFind(id: number): Promise<Task> {
-    const found = await this.findOne(id);
+  public async deleteByFind(id: number, user: User): Promise<Task> {
+    const found = await this.findOne({
+      where: { id, userId: user.id },
+    });
     if (!found) {
       throw new NotFoundException(`Task with ID ${id} not found`);
     }

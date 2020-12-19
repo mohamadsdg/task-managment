@@ -36,15 +36,19 @@ export class TasksService {
     // return await this.taskRepository.save(task)
   }
 
-  public delete(id: number): Promise<Task> {
-    return this.taskRepository.deleteByFind(id);
+  public delete(id: number, user: User): Promise<Task> {
+    return this.taskRepository.deleteByFind(id, user);
     // return this.taskRepository.deleteByDelete(id)
   }
 
-  // public async update(id: number, status: TaskStatus): Promise<Task> {
-  //   const task = await this.findOne(id);
-  //   task.status = status;
-  //   await task.save();
-  //   return task;
-  // }
+  public async update(
+    id: number,
+    status: TaskStatus,
+    user: User,
+  ): Promise<Task> {
+    const task = await this.findOne(id, user);
+    task.status = status;
+    await task.save();
+    return task;
+  }
 }
