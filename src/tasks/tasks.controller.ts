@@ -18,6 +18,8 @@ import { TaskStatus } from './task.model';
 import { FilerTaskDto } from './dto/filter-task.dto';
 import { TaskStatusPipe } from './pipes/task-status.pipe';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { GetUser } from 'src/auth/decorator/get-user.decorator';
+import { User } from 'src/auth/entities/user.entity';
 @Controller('tasks')
 @UseGuards(JwtAuthGuard)
 export class TasksController {
@@ -35,8 +37,8 @@ export class TasksController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  create(@Body() createTask: CreateTaskDto) {
-    return this.taskService.create(createTask);
+  create(@Body() createTask: CreateTaskDto, @GetUser() user: User) {
+    return this.taskService.create(createTask, user);
   }
 
   @Delete('/:id')
