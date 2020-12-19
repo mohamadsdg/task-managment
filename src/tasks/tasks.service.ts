@@ -14,8 +14,8 @@ export class TasksService {
     private readonly taskRepository: TaskRepository,
   ) {}
 
-  public findAll(filterTaskDto: FilerTaskDto): Promise<Task[]> {
-    return this.taskRepository.getTasks(filterTaskDto);
+  public findAll(filterTaskDto: FilerTaskDto, user: User): Promise<Task[]> {
+    return this.taskRepository.getTasks(filterTaskDto, user);
   }
 
   public async findOne(id: number): Promise<Task> {
